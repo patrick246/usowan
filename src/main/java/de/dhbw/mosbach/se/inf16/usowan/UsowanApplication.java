@@ -54,7 +54,6 @@ public class UsowanApplication extends Application {
 
     public void startGame() {
         GameView gameView = new GameView(board);
-        Scene scene = new Scene(new AnchorPane(gameView.getCanvas()), 800, 600);
-        this.stage.setScene(scene);
+        this.stage.setScene(gameView.getScene());
     }
 }

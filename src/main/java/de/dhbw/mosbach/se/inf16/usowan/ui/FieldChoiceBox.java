@@ -8,7 +8,7 @@ import javafx.scene.control.ChoiceBox;
 public class FieldChoiceBox extends ChoiceBox<String> {
 
     private final static ObservableList<String> options = FXCollections.observableArrayList(
-            "Toggle", "0", "1", "2", "3" , "4", "0"
+            "", "0", "1", "2", "3" , "4"
     );
 
     public FieldChoiceBox(Field field) {
@@ -17,7 +17,7 @@ public class FieldChoiceBox extends ChoiceBox<String> {
 
         this.getSelectionModel().selectedItemProperty().addListener((o, old, n) -> {
             switch (n) {
-                case "Toggle":
+                case "":
                     field.setType(Field.Type.ToggleField);
                 break;
                 case "0":

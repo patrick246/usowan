@@ -4,10 +4,15 @@ import de.dhbw.mosbach.se.inf16.usowan.game.Board;
 import de.dhbw.mosbach.se.inf16.usowan.game.BoardRegion;
 import de.dhbw.mosbach.se.inf16.usowan.game.Field;
 import de.dhbw.mosbach.se.inf16.usowan.game.Vector2;
+import de.dhbw.mosbach.se.inf16.usowan.solver.BruteForceSolver;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -15,6 +20,7 @@ public class GameView {
 
     private Canvas canvas;
     private Board board;
+    private Button solveBtn = new Button("Solve");
 
     private final int PADDING_OUTSIDE = 8;
     private final int PADDING_FIELD = 6;
@@ -23,6 +29,9 @@ public class GameView {
 
     public GameView(Board board) {
         this.board = board;
+
+        solveBtn.setOnAction(e -> solve());
+
         Vector2 size = board.getSize();
         canvas = new Canvas(
                 2 * PADDING_OUTSIDE + (2 * PADDING_FIELD + FIELD_SIZE) * size.getX(),
@@ -121,7 +130,16 @@ public class GameView {
         return new Vector2(x, y);
     }
 
-    public Canvas getCanvas() {
-        return canvas;
+    private void solve() {
+        BruteForceSolver solver = new BruteForceSolver(board);
+        if(solver.solve()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Solution found");
+            alert.show();
+            draw();
+        }
+    }
+
+    public Scene getScene() {
+        return new Scene(new VBox(solveBtn, canvas), 800, 600);
     }
 }

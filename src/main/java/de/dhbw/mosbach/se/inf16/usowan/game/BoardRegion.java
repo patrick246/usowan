@@ -70,7 +70,6 @@ public class BoardRegion {
                 .filter(f -> !this.validateNumberField(f))
                 .count();
 
-        System.out.println(numberOfLiars);
         return numberOfLiars == 1;
     }
 
@@ -96,7 +95,6 @@ public class BoardRegion {
             .filter(Field::isToggleField)
             .filter(Field::isSet)
             .count();
-        System.out.println(field.getPosition().toString() + "(" + field.getNumber() + "): " + blackFields);
         return blackFields == field.getNumber();
     }
 

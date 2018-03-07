@@ -54,11 +54,11 @@ public class GameView {
                         FIELD_SIZE, FIELD_SIZE);
 
                 switch (fields[y * board.getSize().getX() + x].getType()) {
-                    case EmptyField:
+                    /*case EmptyField:
                         context.fillText("?",
                                 PADDING_OUTSIDE + (2 * PADDING_FIELD + FIELD_SIZE) * x + PADDING_FIELD + TEXT_OFFSET.getX(),
                                 PADDING_OUTSIDE + (2 * PADDING_FIELD + FIELD_SIZE) * y + PADDING_FIELD + TEXT_OFFSET.getY());
-                        break;
+                        break;*/
                     case NumberField:
                         context.fillText(fields[y * board.getSize().getX() + x].getNumber().toString(),
                                 PADDING_OUTSIDE + (2 * PADDING_FIELD + FIELD_SIZE) * x + PADDING_FIELD + TEXT_OFFSET.getX(),
@@ -88,6 +88,14 @@ public class GameView {
 
         context.setStroke(Color.BLACK);
         for (BoardRegion region : board.getRegions()) {
+            boolean validBlacks = region.isRegionValidBlacks();
+            boolean validLiars = region.isRegionValidLiars();
+
+            if(validBlacks && validLiars) {
+                context.setStroke(Color.BLACK);
+            } else {
+                context.setStroke(Color.LIGHTSALMON);
+            }
             context.strokeRect(
                     PADDING_OUTSIDE + region.getLocation().getX() * (2 * PADDING_FIELD + FIELD_SIZE),
                     PADDING_OUTSIDE + region.getLocation().getY() * (2 * PADDING_FIELD + FIELD_SIZE),

@@ -22,6 +22,7 @@ public class RegionComponent extends GridPane {
 
         Button deleteButton = new Button("-");
         deleteButton.setOnAction(e -> this.parent.deleteRegionEntry(this));
+        deleteButton.setFocusTraversable(false);
 
         this.add(new Label("Pos x, y"), 0, 1);
         this.add(new Label("Size x, y"), 0, 2);
@@ -47,5 +48,9 @@ public class RegionComponent extends GridPane {
 
     private Vector2 getSize() {
         return new Vector2(Integer.parseInt(sizeXfield.getText()), Integer.parseInt(sizeYfield.getText()));
+    }
+
+    public void focus() {
+        this.posXfield.requestFocus();
     }
 }

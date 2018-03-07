@@ -65,10 +65,13 @@ public class BoardRegion {
      * @return whether the field is valid
      */
     public boolean isRegionValidLiars() {
-        return Stream.of(fields)
+        long numberOfLiars =  Stream.of(fields)
                 .filter(Field::isNumberField)
-                .filter(this::validateNumberField)
-                .count() == 1;
+                .filter(f -> !this.validateNumberField(f))
+                .count();
+
+        System.out.println(numberOfLiars);
+        return numberOfLiars == 1;
     }
 
     /**
@@ -93,7 +96,7 @@ public class BoardRegion {
             .filter(Field::isToggleField)
             .filter(Field::isSet)
             .count();
-
+        System.out.println(field.getPosition().toString() + "(" + field.getNumber() + "): " + blackFields);
         return blackFields == field.getNumber();
     }
 
@@ -109,7 +112,10 @@ public class BoardRegion {
                 new Vector2(field.getPosition().getX() - 1, field.getPosition().getY()),
                 new Vector2(field.getPosition().getX(), field.getPosition().getY() + 1),
                 new Vector2(field.getPosition().getX(), field.getPosition().getY() - 1)
-        ).map(parent::getField);
+        )
+                .filter(p -> p.getX() >= 0 && p.getX() < parent.getSize().getX())
+                .filter(p -> p.getY() >= 0 && p.getY() < parent.getSize().getY())
+                .map(parent::getField);
     }
 
     private boolean valueInRange(int value, int minIncl, int maxExcl) {

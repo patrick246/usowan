@@ -2,12 +2,11 @@ package de.dhbw.mosbach.se.inf16.usowan.game;
 
 public class Field {
     public enum Type {
-        EmptyField,
         NumberField,
         ToggleField
     }
 
-    private Type type = Type.EmptyField;
+    private Type type = Type.ToggleField;
     private final Vector2 position;
     private Integer number;
     private boolean state;

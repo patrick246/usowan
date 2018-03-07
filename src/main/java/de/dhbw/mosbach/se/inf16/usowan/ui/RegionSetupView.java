@@ -21,7 +21,7 @@ public class RegionSetupView {
 
     private Button addRegionBtn = new Button("Add Region");
     private List<RegionComponent> regions = new ArrayList<>();
-    private VBox regionVbox = new VBox(addRegionBtn);
+    private VBox regionVbox = new VBox();
 
     private Button doneBtn = new Button("Done");
 
@@ -34,7 +34,7 @@ public class RegionSetupView {
     }
 
     public Scene getScene() {
-        VBox vBox = new VBox(sizeHbox, regionVbox, doneBtn);
+        VBox vBox = new VBox(sizeHbox, regionVbox, addRegionBtn, doneBtn);
         vBox.setSpacing(8);
         return new Scene(vBox, 800, 600);
     }
@@ -43,6 +43,7 @@ public class RegionSetupView {
         RegionComponent component = new RegionComponent(this);
         regions.add(component);
         regionVbox.getChildren().add(component);
+        component.focus();
     }
 
     public void deleteRegionEntry(RegionComponent component) {

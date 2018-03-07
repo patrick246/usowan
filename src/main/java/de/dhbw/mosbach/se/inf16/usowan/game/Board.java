@@ -10,6 +10,7 @@ public class Board {
 
     public Board(Vector2 size, BoardRegion... boardRegions) {
         regions.addAll(Arrays.asList(boardRegions));
+        regions.forEach(r -> r.setParent(this));
         if(!checkRegionsValid()) {
             throw new IllegalStateException("Regions cannot intersect");
         }
